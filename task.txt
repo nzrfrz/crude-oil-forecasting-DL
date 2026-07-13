@@ -1,0 +1,14 @@
+ini adalah final assignment deep learning, yang nantinya akan djadikan laporan presentasi, dengan benchmark pembanding Wu-Improved-CEEMDAN-SCA-RVFL.md
+
+requirement:
+1. guanakan skill dan plugin yang tepat untuk project ini yang sudah terinstall
+2. untuk penulisan laporan, ganti tanda baca "-", "--", "---", dan sejenisnya dengan titik, atau koma saja, kalau menggunakan ":" jadikan di baris baru dengan list.
+3. referensi gabungan experiment saya bisa anda analisa di D:\Coding\#bigdata\crude-oil-forecasting-thesis dan D:\Coding\#bigdata\crude-oil-forecasting-DL
+4. semua summaries, atau report jadikan sebagai .md
+5. struktur folder disamakan dengan point 3
+
+tugas
+1. baca dulu laporan saya di D:\Coding\#bigdata\crude-oil-forecasting-DL\experiment-argument-ID.md
+2. training dan lakukan XAI persis seperti di D:\Coding\#bigdata\crude-oil-forecasting-DL\experiment-argument-ID.md dengan semua row dataset disini.
+3. benchmarking dengan dataset yang sama dengan Wu-Improved-CEEMDAN-SCA-RVFL.md dan lakukan training seperti point 2, dataset gunakan yang di dataset, hanya panjang row samakan dengan yang Wu-Improved-CEEMDAN-SCA-RVFL.md
+4. untuk script nya bisa langsung dan ambil di requirement point 3
