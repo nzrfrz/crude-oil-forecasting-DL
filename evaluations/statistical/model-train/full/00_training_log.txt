@@ -1,0 +1,159 @@
+Log started: 2026-07-13 21:15:20
+==================================================================
+  STAGE 05: DL MODEL TRAINING & COMPARISON, run=full
+  Device: cuda | Seed: 42 | Lookback T: 10
+==================================================================
+
+[*] Loading data...
+    Train windows  : 6970
+    Val windows    : 774
+    Test windows : 968
+    Unseen windows : 969
+
+============================================================
+[*] Training MLP...
+  [MLP] Epoch   1 | Train=0.014344 | Val=0.000327 | LR=1.00e-03
+  [MLP] Epoch  20 | Train=0.000605 | Val=0.000566 | LR=5.00e-04
+  [MLP] Early stop @ epoch 23 (best_val=0.000125)
+  [MLP] Finished in 15.8s | Best val: 0.000125
+  [+] Model saved: models/full/mlp_model.pt
+
+============================================================
+[*] Training RNN...
+  [RNN] Epoch   1 | Train=0.004716 | Val=0.000818 | LR=1.00e-03
+  [RNN] Epoch  20 | Train=0.000385 | Val=0.000168 | LR=1.00e-03
+  [RNN] Epoch  40 | Train=0.000271 | Val=0.000093 | LR=5.00e-04
+  [RNN] Early stop @ epoch 59 (best_val=0.000085)
+  [RNN] Finished in 45.9s | Best val: 0.000085
+  [+] Model saved: models/full/rnn_model.pt
+
+============================================================
+[*] Training LSTM...
+  [LSTM] Epoch   1 | Train=0.012022 | Val=0.000570 | LR=1.00e-03
+  [LSTM] Epoch  20 | Train=0.000294 | Val=0.000123 | LR=1.00e-03
+  [LSTM] Epoch  40 | Train=0.000219 | Val=0.000118 | LR=1.00e-03
+  [LSTM] Epoch  60 | Train=0.000205 | Val=0.000105 | LR=1.00e-03
+  [LSTM] Epoch  80 | Train=0.000189 | Val=0.000098 | LR=1.00e-03
+  [LSTM] Early stop @ epoch 90 (best_val=0.000079)
+  [LSTM] Finished in 77.3s | Best val: 0.000079
+  [+] Model saved: models/full/lstm_model.pt
+
+============================================================
+[*] Training BiLSTM...
+  [BiLSTM] Epoch   1 | Train=0.007559 | Val=0.000229 | LR=1.00e-03
+  [BiLSTM] Epoch  20 | Train=0.000232 | Val=0.000199 | LR=1.00e-03
+  [BiLSTM] Epoch  40 | Train=0.000202 | Val=0.000127 | LR=1.00e-03
+  [BiLSTM] Early stop @ epoch 59 (best_val=0.000078)
+  [BiLSTM] Finished in 62.5s | Best val: 0.000078
+  [+] Model saved: models/full/bilstm_model.pt
+
+============================================================
+[*] Training GRU...
+  [GRU] Epoch   1 | Train=0.004523 | Val=0.000448 | LR=1.00e-03
+  [GRU] Epoch  20 | Train=0.000283 | Val=0.000168 | LR=1.00e-03
+  [GRU] Epoch  40 | Train=0.000220 | Val=0.000096 | LR=5.00e-04
+  [GRU] Epoch  60 | Train=0.000181 | Val=0.000123 | LR=2.50e-04
+  [GRU] Early stop @ epoch 64 (best_val=0.000083)
+  [GRU] Finished in 53.1s | Best val: 0.000083
+  [+] Model saved: models/full/gru_model.pt
+
+============================================================
+[*] Training TCN...
+  [TCN] Epoch   1 | Train=0.052593 | Val=0.001825 | LR=1.00e-03
+  [TCN] Epoch  20 | Train=0.000175 | Val=0.000098 | LR=1.00e-03
+  [TCN] Epoch  40 | Train=0.000138 | Val=0.000099 | LR=5.00e-04
+  [TCN] Epoch  60 | Train=0.000091 | Val=0.000083 | LR=2.50e-04
+  [TCN] Early stop @ epoch 66 (best_val=0.000076)
+  [TCN] Finished in 125.3s | Best val: 0.000076
+  [+] Model saved: models/full/tcn_model.pt
+
+============================================================
+[*] Training Transformer...
+  [Transformer] Epoch   1 | Train=0.011562 | Val=0.000430 | LR=1.00e-03
+  [Transformer] Epoch  20 | Train=0.000451 | Val=0.000641 | LR=1.00e-03
+  [Transformer] Epoch  40 | Train=0.000300 | Val=0.000160 | LR=2.50e-04
+  [Transformer] Epoch  60 | Train=0.000255 | Val=0.000144 | LR=1.25e-04
+  [Transformer] Epoch  80 | Train=0.000242 | Val=0.000153 | LR=1.25e-04
+  [Transformer] Epoch 100 | Train=0.000232 | Val=0.000146 | LR=1.25e-04
+  [Transformer] Epoch 120 | Train=0.000211 | Val=0.000129 | LR=3.13e-05
+  [Transformer] Early stop @ epoch 126 (best_val=0.000126)
+  [Transformer] Finished in 228.8s | Best val: 0.000126
+  [+] Model saved: models/full/transformer_model.pt
+
+============================================================
+[*] Training Informer...
+  [Informer] Epoch   1 | Train=0.010636 | Val=0.000402 | LR=1.00e-03
+  [Informer] Epoch  20 | Train=0.000462 | Val=0.000284 | LR=5.00e-04
+  [Informer] Epoch  40 | Train=0.000347 | Val=0.000316 | LR=5.00e-04
+  [Informer] Epoch  60 | Train=0.000279 | Val=0.000142 | LR=2.50e-04
+  [Informer] Early stop @ epoch 73 (best_val=0.000131)
+  [Informer] Finished in 186.8s | Best val: 0.000131
+  [+] Model saved: models/full/informer_model.pt
+
+[*] Generating predictions and computing metrics...
+  MLP          TEST: MAE=3.1983 MAPE=6.9060% R2=0.9440 | UNSEEN: MAE=3.1099 MAPE=3.7210% R2=0.6527
+  RNN          TEST: MAE=2.7962 MAPE=5.5286% R2=0.9567 | UNSEEN: MAE=2.9908 MAPE=3.6025% R2=0.6886
+  LSTM         TEST: MAE=3.4650 MAPE=6.8126% R2=0.9157 | UNSEEN: MAE=3.2860 MAPE=3.9014% R2=0.5805
+  BiLSTM       TEST: MAE=3.0547 MAPE=6.0119% R2=0.9404 | UNSEEN: MAE=3.0320 MAPE=3.6093% R2=0.6535
+  GRU          TEST: MAE=3.1805 MAPE=6.3740% R2=0.9387 | UNSEEN: MAE=3.0896 MAPE=3.6906% R2=0.6455
+  TCN          TEST: MAE=3.1283 MAPE=6.5207% R2=0.9375 | UNSEEN: MAE=3.0933 MAPE=3.7214% R2=0.6538
+  Transformer  TEST: MAE=3.5398 MAPE=6.4038% R2=0.9257 | UNSEEN: MAE=3.3258 MAPE=4.0147% R2=0.6461
+  Informer     TEST: MAE=3.4012 MAPE=6.7074% R2=0.9343 | UNSEEN: MAE=3.5364 MAPE=4.2453% R2=0.5749
+  [+] Saved: evaluations/statistical/model-train/full/01_metrics_summary.md
+  [+] Saved: evaluations/statistical/model-train/full/predictions_test.csv
+  [+] Saved: evaluations/statistical/model-train/full/predictions_unseen.csv
+
+[*] Running Diebold-Mariano pairwise tests (28 pairs x 2 splits)...
+  [+] Saved: evaluations/statistical/model-train/full/02_dm_test.md
+  [+] Saved: evaluations/graphical/model-train/full/dm_heatmap_test.png
+  [+] Saved: evaluations/statistical/model-train/full/02b_dm_unseen.md
+  [+] Saved: evaluations/graphical/model-train/full/dm_heatmap_unseen.png
+
+[*] Computing permutation feature importance (10 repeats x 4 features x 8 models x 2 splits)...
+  [+] Saved: evaluations/statistical/model-train/full/03_feature_importance_test.md
+  [+] Saved: evaluations/graphical/model-train/full/feature_importance_all_models_test.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-test-set/Informer.png
+  [+] Saved: evaluations/statistical/model-train/full/03b_feature_importance_unseen.md
+  [+] Saved: evaluations/graphical/model-train/full/feature_importance_all_models_unseen.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/full/feature-importance-unseen-set/Informer.png
+
+[*] Generating plots...
+  [+] Saved: evaluations/graphical/model-train/full/actual_vs_predicted_test.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-test-set/Informer.png
+  [+] Saved: evaluations/graphical/model-train/full/metrics_comparison_test.png
+  [+] Saved: evaluations/graphical/model-train/full/actual_vs_predicted_unseen.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/full/actual-vs-predicted-unseen-set/Informer.png
+  [+] Saved: evaluations/graphical/model-train/full/metrics_comparison_unseen.png
+  [+] Saved: evaluations/graphical/model-train/full/training_curves.png
+
+[+] Done. Run tag: full. Outputs in evaluations/statistical/model-train/full and evaluations/graphical/model-train/full.
+
+Log finished: 2026-07-13 21:29:13

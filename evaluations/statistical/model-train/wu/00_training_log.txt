@@ -1,0 +1,124 @@
+Log started: 2026-07-13 21:29:29
+==================================================================
+  STAGE 05: DL MODEL TRAINING & COMPARISON, run=wu
+  Device: cuda | Seed: 42 | Lookback T: 10
+==================================================================
+
+[*] Loading data...
+    Train windows  : 5822
+    Val windows    : 646
+    Test windows : 1618
+
+============================================================
+[*] Training MLP...
+  [MLP] Epoch   1 | Train=0.010214 | Val=0.000655 | LR=1.00e-03
+  [MLP] Epoch  20 | Train=0.000462 | Val=0.005879 | LR=5.00e-04
+  [MLP] Early stop @ epoch 23 (best_val=0.000537)
+  [MLP] Finished in 13.1s | Best val: 0.000537
+  [+] Model saved: models/wu/mlp_model.pt
+
+============================================================
+[*] Training RNN...
+  [RNN] Epoch   1 | Train=0.004473 | Val=0.000806 | LR=1.00e-03
+  [RNN] Epoch  20 | Train=0.000278 | Val=0.000602 | LR=1.00e-03
+  [RNN] Early stop @ epoch 39 (best_val=0.000197)
+  [RNN] Finished in 29.0s | Best val: 0.000197
+  [+] Model saved: models/wu/rnn_model.pt
+
+============================================================
+[*] Training LSTM...
+  [LSTM] Epoch   1 | Train=0.008596 | Val=0.000625 | LR=1.00e-03
+  [LSTM] Epoch  20 | Train=0.000236 | Val=0.000527 | LR=1.00e-03
+  [LSTM] Epoch  40 | Train=0.000184 | Val=0.000428 | LR=1.00e-03
+  [LSTM] Early stop @ epoch 57 (best_val=0.000291)
+  [LSTM] Finished in 42.0s | Best val: 0.000291
+  [+] Model saved: models/wu/lstm_model.pt
+
+============================================================
+[*] Training BiLSTM...
+  [BiLSTM] Epoch   1 | Train=0.007448 | Val=0.000729 | LR=1.00e-03
+  [BiLSTM] Epoch  20 | Train=0.000168 | Val=0.000799 | LR=1.00e-03
+  [BiLSTM] Epoch  40 | Train=0.000140 | Val=0.000373 | LR=1.00e-03
+  [BiLSTM] Early stop @ epoch 50 (best_val=0.000278)
+  [BiLSTM] Finished in 45.7s | Best val: 0.000278
+  [+] Model saved: models/wu/bilstm_model.pt
+
+============================================================
+[*] Training GRU...
+  [GRU] Epoch   1 | Train=0.003861 | Val=0.000445 | LR=1.00e-03
+  [GRU] Epoch  20 | Train=0.000213 | Val=0.000398 | LR=5.00e-04
+  [GRU] Early stop @ epoch 29 (best_val=0.000309)
+  [GRU] Finished in 20.5s | Best val: 0.000309
+  [+] Model saved: models/wu/gru_model.pt
+
+============================================================
+[*] Training TCN...
+  [TCN] Epoch   1 | Train=0.060639 | Val=0.005274 | LR=1.00e-03
+  [TCN] Epoch  20 | Train=0.000114 | Val=0.000408 | LR=1.00e-03
+  [TCN] Epoch  40 | Train=0.000085 | Val=0.000491 | LR=5.00e-04
+  [TCN] Early stop @ epoch 46 (best_val=0.000296)
+  [TCN] Finished in 84.3s | Best val: 0.000296
+  [+] Model saved: models/wu/tcn_model.pt
+
+============================================================
+[*] Training Transformer...
+  [Transformer] Epoch   1 | Train=0.011719 | Val=0.002957 | LR=1.00e-03
+  [Transformer] Epoch  20 | Train=0.000323 | Val=0.000803 | LR=5.00e-04
+  [Transformer] Epoch  40 | Train=0.000302 | Val=0.001115 | LR=5.00e-04
+  [Transformer] Early stop @ epoch 52 (best_val=0.000705)
+  [Transformer] Finished in 92.7s | Best val: 0.000705
+  [+] Model saved: models/wu/transformer_model.pt
+
+============================================================
+[*] Training Informer...
+  [Informer] Epoch   1 | Train=0.008138 | Val=0.001460 | LR=1.00e-03
+  [Informer] Epoch  20 | Train=0.000394 | Val=0.001793 | LR=5.00e-04
+  [Informer] Epoch  40 | Train=0.000302 | Val=0.001417 | LR=2.50e-04
+  [Informer] Early stop @ epoch 42 (best_val=0.000476)
+  [Informer] Finished in 99.9s | Best val: 0.000476
+  [+] Model saved: models/wu/informer_model.pt
+
+[*] Generating predictions and computing metrics...
+  MLP          TEST: MAE=2.4679 MAPE=4.3933% R2=0.9722
+  RNN          TEST: MAE=1.2945 MAPE=2.3309% R2=0.9908
+  LSTM         TEST: MAE=1.5556 MAPE=2.7669% R2=0.9889
+  BiLSTM       TEST: MAE=1.3788 MAPE=2.4473% R2=0.9902
+  GRU          TEST: MAE=1.4934 MAPE=2.6634% R2=0.9891
+  TCN          TEST: MAE=1.2462 MAPE=2.2432% R2=0.9910
+  Transformer  TEST: MAE=1.7047 MAPE=2.9898% R2=0.9868
+  Informer     TEST: MAE=1.6921 MAPE=2.9908% R2=0.9870
+  [+] Saved: evaluations/statistical/model-train/wu/01_metrics_summary.md
+  [+] Saved: evaluations/statistical/model-train/wu/predictions_test.csv
+
+[*] Running Diebold-Mariano pairwise tests (28 pairs x 1 splits)...
+  [+] Saved: evaluations/statistical/model-train/wu/02_dm_test.md
+  [+] Saved: evaluations/graphical/model-train/wu/dm_heatmap_test.png
+
+[*] Computing permutation feature importance (10 repeats x 4 features x 8 models x 1 splits)...
+  [+] Saved: evaluations/statistical/model-train/wu/03_feature_importance_test.md
+  [+] Saved: evaluations/graphical/model-train/wu/feature_importance_all_models_test.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/wu/feature-importance-test-set/Informer.png
+
+[*] Generating plots...
+  [+] Saved: evaluations/graphical/model-train/wu/actual_vs_predicted_test.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/MLP.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/RNN.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/LSTM.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/BiLSTM.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/GRU.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/TCN.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/Transformer.png
+  [+] Saved: evaluations/graphical/model-train/wu/actual-vs-predicted-test-set/Informer.png
+  [+] Saved: evaluations/graphical/model-train/wu/metrics_comparison_test.png
+  [+] Saved: evaluations/graphical/model-train/wu/training_curves.png
+
+[+] Done. Run tag: wu. Outputs in evaluations/statistical/model-train/wu and evaluations/graphical/model-train/wu.
+
+Log finished: 2026-07-13 21:37:05
