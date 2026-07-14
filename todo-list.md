@@ -34,7 +34,7 @@ D:\Coding\#bigdata\venv\Scripts\activate.bat
 
 ## Task 3. XAI
 
-- [ ] Adaptasi `09-xai-explainability.py`, SHAP GradientExplainer + Integrated Gradients, concentration score, Spearman vs MAE
+- [x] Adaptasi `09-xai-explainability.py`, SHAP GradientExplainer + Integrated Gradients, concentration score, Spearman vs MAE
 - [ ] User run, `python 09-xai-explainability.py --run full`
 - [ ] User run, `python 09-xai-explainability.py --run wu`
 - [ ] Verifikasi, CSV atribusi fitur dan timestep, heatmap, comparison plot

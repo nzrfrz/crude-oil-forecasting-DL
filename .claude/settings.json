@@ -15,7 +15,10 @@
       "PowerShell(git commit -m \"feat: data prep and chronological split for full and wu runs\")",
       "Bash('/d/Coding/#bigdata/venv/Scripts/python.exe' -c ' *)",
       "Bash(\"/d/Coding/#bigdata/venv/Scripts/python.exe\" -m py_compile \"05-dl-model-training.py\")",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(ls \"D:/Coding/#bigdata/crude-oil-forecasting-DL/\" 2>/dev/null)",
+      "Bash(\"/d/Coding/#bigdata/venv/Scripts/python.exe\" -m py_compile \"09-xai-explainability.py\")"
     ]
   }
 }
