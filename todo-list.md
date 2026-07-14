@@ -64,11 +64,11 @@ Ditambahkan setelah XAI menunjukkan MLP model terlemah (bukan masalah struktural
 
 ## Task 4. Laporan
 
-- [ ] Tulis `final-task-report-ID.md`, angka diambil dari file hasil
-- [ ] Tulis `benchmark-wu-comparison.md`, tabel vs Wu horizon 1, plus catatan kejujuran perbandingan
-- [ ] Tulis `README.md`
-- [ ] Lint tanda baca, tanpa dash naratif, kalimat ber ":" jadi list
-- [ ] Commit
+- [x] Tulis `final-task-report-ID.md`, angka diambil dari file hasil
+- [x] Tulis `benchmark-wu-comparison.md`, tabel vs Wu horizon 1, plus catatan kejujuran perbandingan
+- [x] Tulis `README.md`
+- [x] Lint tanda baca, tanpa dash naratif, kalimat ber ":" jadi list
+- [x] Commit (df98f7b)
 
 ## Keputusan yang sudah terkunci
 
