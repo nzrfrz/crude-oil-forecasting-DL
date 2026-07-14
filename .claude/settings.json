@@ -18,7 +18,8 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(ls \"D:/Coding/#bigdata/crude-oil-forecasting-DL/\" 2>/dev/null)",
-      "Bash(\"/d/Coding/#bigdata/venv/Scripts/python.exe\" -m py_compile \"09-xai-explainability.py\")"
+      "Bash(\"/d/Coding/#bigdata/venv/Scripts/python.exe\" -m py_compile \"09-xai-explainability.py\")",
+      "Bash(\"/d/Coding/#bigdata/venv/Scripts/python.exe\" \"C:\\\\Users\\\\ADMINI~1\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\d--Coding--bigdata-crude-oil-forecasting-final-task-DL\\\\b1e395fd-2690-4c1e-80e6-ee037a9944f2\\\\scratchpad\\\\trend_share.py\")"
     ]
   }
 }

@@ -1,0 +1,29 @@
+======================================================================
+CONCENTRATION vs. FORECAST ERROR, SPEARMAN CORRELATION
+======================================================================
+
+Menguji apakah model yang mengonsentrasikan atribusi lebih tajam
+(pada komponen Trend atau timestep paling baru) mencapai error
+lebih rendah. Rho negatif berarti konsentrasi lebih tinggi
+berkaitan dengan MAE lebih rendah.
+
+[test] Feature concentration vs MAE (8 model)
+  n            : 8
+  Spearman rho : -0.1429
+  p-value      : 0.7358
+
+[test] Timestep concentration vs MAE (7 model sequence)
+  n            : 7
+  Spearman rho : -0.7857
+  p-value      : 0.0362
+
+[unseen] Feature concentration vs MAE (8 model)
+  n            : 8
+  Spearman rho : 0.1190
+  p-value      : 0.7789
+
+[unseen] Timestep concentration vs MAE (7 model sequence)
+  n            : 7
+  Spearman rho : -0.8214
+  p-value      : 0.0234
+

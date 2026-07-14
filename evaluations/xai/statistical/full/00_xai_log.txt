@@ -1,0 +1,81 @@
+Log started: 2026-07-14 08:40:52
+==================================================================
+  STAGE 09: XAI EXPLAINABILITY, run=full
+  Device: cuda | Seed: 42 | Lookback T: 10
+==================================================================
+
+[*] Loading data...
+
+============================================================
+[*] Explaining test set (968 windows, capped sample size 200)
+============================================================
+
+[*] MLP...
+    feature_concentration=0.387  timestep_concentration=None  MAE=3.634
+
+[*] RNN...
+    feature_concentration=0.308  timestep_concentration=0.404  MAE=3.029
+
+[*] LSTM...
+    feature_concentration=0.304  timestep_concentration=0.269  MAE=3.795
+
+[*] BiLSTM...
+    feature_concentration=0.317  timestep_concentration=0.402  MAE=3.241
+
+[*] GRU...
+    feature_concentration=0.328  timestep_concentration=0.2  MAE=3.331
+
+[*] TCN...
+    feature_concentration=0.286  timestep_concentration=0.815  MAE=3.177
+
+[*] Transformer...
+    feature_concentration=0.272  timestep_concentration=0.083  MAE=3.830
+
+[*] Informer...
+    feature_concentration=0.309  timestep_concentration=0.078  MAE=3.623
+
+============================================================
+[*] Explaining unseen set (969 windows, capped sample size 200)
+============================================================
+
+[*] MLP...
+    feature_concentration=0.500  timestep_concentration=None  MAE=3.260
+
+[*] RNN...
+    feature_concentration=0.432  timestep_concentration=0.415  MAE=2.901
+
+[*] LSTM...
+    feature_concentration=0.432  timestep_concentration=0.284  MAE=2.998
+
+[*] BiLSTM...
+    feature_concentration=0.456  timestep_concentration=0.403  MAE=2.825
+
+[*] GRU...
+    feature_concentration=0.462  timestep_concentration=0.186  MAE=2.966
+
+[*] TCN...
+    feature_concentration=0.443  timestep_concentration=0.901  MAE=2.936
+
+[*] Transformer...
+    feature_concentration=0.415  timestep_concentration=0.065  MAE=3.208
+
+[*] Informer...
+    feature_concentration=0.447  timestep_concentration=0.058  MAE=3.321
+
+[*] Saving statistical reports...
+  [+] Saved: evaluations/xai/statistical/full/01_feature_attribution_test.csv
+  [+] Saved: evaluations/xai/statistical/full/02_timestep_attribution_test.csv
+  [+] Saved: evaluations/xai/statistical/full/01_feature_attribution_unseen.csv
+  [+] Saved: evaluations/xai/statistical/full/02_timestep_attribution_unseen.csv
+  [+] Saved: evaluations/xai/statistical/full/03_concentration_metrics.csv
+  [+] Saved: evaluations/xai/statistical/full/04_concentration_vs_error_correlation.txt
+
+[*] Saving graphical reports...
+  [+] Saved: evaluations/xai/graphical/full/comparison/feature_importance_all_models_test.png
+  [+] Saved: evaluations/xai/graphical/full/comparison/concentration_vs_mae_test.png
+  [+] Saved: evaluations/xai/graphical/full/comparison/feature_importance_all_models_unseen.png
+  [+] Saved: evaluations/xai/graphical/full/comparison/concentration_vs_mae_unseen.png
+
+[+] Done. Run tag: full. Outputs in evaluations/xai/statistical/full and evaluations/xai/graphical/full.
+
+Log finished: 2026-07-14 08:47:53

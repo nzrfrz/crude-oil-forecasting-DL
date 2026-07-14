@@ -1,0 +1,49 @@
+Log started: 2026-07-14 09:01:41
+==================================================================
+  STAGE 09: XAI EXPLAINABILITY, run=wu
+  Device: cuda | Seed: 42 | Lookback T: 10
+==================================================================
+
+[*] Loading data...
+
+============================================================
+[*] Explaining test set (1618 windows, capped sample size 200)
+============================================================
+
+[*] MLP...
+    feature_concentration=0.536  timestep_concentration=None  MAE=2.354
+
+[*] RNN...
+    feature_concentration=0.453  timestep_concentration=0.357  MAE=1.205
+
+[*] LSTM...
+    feature_concentration=0.462  timestep_concentration=0.165  MAE=1.502
+
+[*] BiLSTM...
+    feature_concentration=0.471  timestep_concentration=0.369  MAE=1.294
+
+[*] GRU...
+    feature_concentration=0.438  timestep_concentration=0.066  MAE=1.437
+
+[*] TCN...
+    feature_concentration=0.471  timestep_concentration=0.897  MAE=1.244
+
+[*] Transformer...
+    feature_concentration=0.420  timestep_concentration=0.038  MAE=1.542
+
+[*] Informer...
+    feature_concentration=0.440  timestep_concentration=0.016  MAE=1.590
+
+[*] Saving statistical reports...
+  [+] Saved: evaluations/xai/statistical/wu/01_feature_attribution_test.csv
+  [+] Saved: evaluations/xai/statistical/wu/02_timestep_attribution_test.csv
+  [+] Saved: evaluations/xai/statistical/wu/03_concentration_metrics.csv
+  [+] Saved: evaluations/xai/statistical/wu/04_concentration_vs_error_correlation.txt
+
+[*] Saving graphical reports...
+  [+] Saved: evaluations/xai/graphical/wu/comparison/feature_importance_all_models_test.png
+  [+] Saved: evaluations/xai/graphical/wu/comparison/concentration_vs_mae_test.png
+
+[+] Done. Run tag: wu. Outputs in evaluations/xai/statistical/wu and evaluations/xai/graphical/wu.
+
+Log finished: 2026-07-14 09:05:06
