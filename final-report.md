@@ -46,8 +46,27 @@ def extract_trend_and_residual(close_window):
     return trend_t, residual_window
 ```
 
-Loop produksi memanggil fungsi ini pada setiap titik waktu t, mulai dari t = 500 (`WARMUP_MINIMUM`) sampai baris terakhir dataset.
-Baris sebelum t = 500 tidak memiliki window yang cukup panjang untuk menghasilkan estimasi Trend endpoint yang layak, sehingga di-drop dari dataset final.
+Catatan penting, `WARMUP_MINIMUM` tidak dipakai di dalam fungsi `extract_trend_and_residual` di atas.
+Fungsi ini murni menerima `close_window` apa pun yang dikirim kepadanya, tanpa mengetahui soal warmup sama sekali.
+
+`WARMUP_MINIMUM` dipakai di fungsi `main()`, untuk menentukan titik awal `t` pada loop produksi (`start_t`), sekaligus logika resume kalau proses sempat dihentikan dan dilanjutkan.
+
+```python
+if os.path.exists(OUTPUT_PATH):
+    existing_df = pd.read_csv(OUTPUT_PATH)
+    n_done = len(existing_df)
+    start_t = WARMUP_MINIMUM + n_done   # resume, lanjut dari progress terakhir
+else:
+    start_t = WARMUP_MINIMUM             # run baru, mulai dari t = 500
+
+for t in range(start_t, n_total):
+    close_window = close[0:t + 1]
+    trend_t, residual_window = extract_trend_and_residual(close_window)
+    ...
+```
+
+Loop produksi memanggil `extract_trend_and_residual` pada setiap titik waktu t, mulai dari t = 500 (`WARMUP_MINIMUM`) sampai baris terakhir dataset, sesuai `start_t` yang ditentukan di atas.
+Baris sebelum t = 500 tidak memiliki window yang cukup panjang untuk menghasilkan estimasi Trend endpoint yang layak, sehingga tidak pernah masuk ke loop dan otomatis tidak ada di dataset final, bukan karena ada pengecekan warmup di dalam fungsi ekstraksinya.
 Ini adalah alasan dataset final proyek ini dimulai dari 1988-01-11, bukan dari awal data harga minyak mentah pada 1986-01-02.
 
 Reproducibility dijaga dengan seed CEEMDAN dikunci per hari (`seed = SEED_BASE + t`), sehingga pipeline ini menghasilkan angka yang sama persis setiap kali dijalankan ulang dari awal.
