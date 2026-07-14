@@ -51,6 +51,17 @@ Ditambahkan setelah analisa XAI menunjukkan Transformer dan Informer punya times
 - [ ] Verifikasi 01_recency_fix_summary.md, plot timestep comparison, plot metrics comparison
 - [ ] Commit
 
+## Task 3c. Hyperparameter Tuning (MLP)
+
+Ditambahkan setelah XAI menunjukkan MLP model terlemah (bukan masalah struktural seperti Transformer/Informer, murni kapasitas/regularisasi jaringan feedforward). Di eksperimen referensi, tuning serupa memangkas MAE MLP hampir separuh, sementara tuning generik untuk Transformer/Informer justru memperburuk (lihat `D:\Coding\#bigdata\crude-oil-forecasting-DL\README-06-tuning-findings.md`), makanya di sini scope tuning sengaja dipersempit ke MLP saja.
+
+- [x] Tulis `11-hyperparameter-tuning.py`, Optuna TPE + MedianPruner, 30 trial default, checkpoint tuned disimpan terpisah (tidak menimpa Stage 05)
+- [x] Smoke test, `--n-trials 2` di run wu, pipeline lengkap jalan tanpa error (search, retrain, baseline load, report), artefak smoke test dihapus
+- [ ] User run, `python 11-hyperparameter-tuning.py --run full`
+- [ ] User run, `python 11-hyperparameter-tuning.py --run wu`
+- [ ] Verifikasi 01_mlp_tuning_summary.md, apakah tuned mengalahkan baseline
+- [ ] Commit
+
 ## Task 4. Laporan
 
 - [ ] Tulis `final-task-report-ID.md`, angka diambil dari file hasil
