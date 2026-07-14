@@ -35,9 +35,20 @@ D:\Coding\#bigdata\venv\Scripts\activate.bat
 ## Task 3. XAI
 
 - [x] Adaptasi `09-xai-explainability.py`, SHAP GradientExplainer + Integrated Gradients, concentration score, Spearman vs MAE
-- [ ] User run, `python 09-xai-explainability.py --run full`
-- [ ] User run, `python 09-xai-explainability.py --run wu`
-- [ ] Verifikasi, CSV atribusi fitur dan timestep, heatmap, comparison plot
+- [x] User run, `python 09-xai-explainability.py --run full`
+- [x] User run, `python 09-xai-explainability.py --run wu`
+- [x] Verifikasi, CSV atribusi fitur dan timestep, heatmap, comparison plot
+- [x] Commit (269c77c)
+
+## Task 3b. Mitigasi Recency-Bias (Transformer + Informer)
+
+Ditambahkan setelah analisa XAI menunjukkan Transformer dan Informer punya timestep concentration paling rendah dan t-0 share paling rendah di antara model sequence, di ketiga split (full test, full unseen, wu test). Sama seperti eksperimen mitigasi #1 di `D:\Coding\#bigdata\crude-oil-forecasting-DL\experiment-argument-ID.md`, tapi diperluas ke Informer (bukan cuma Transformer) karena Informer punya kelemahan pooling arsitektur yang identik.
+
+- [x] Tulis `10-recency-bias-fix.py`, learned positional encoding + last-timestep pooling untuk Transformer dan Informer, baseline dimuat dari checkpoint Stage 05 tanpa retrain
+- [x] Smoke test, verifikasi 4 checkpoint baseline (Transformer/Informer x full/wu) berhasil dimuat dengan state_dict cocok
+- [ ] User run, `python 10-recency-bias-fix.py --run full`
+- [ ] User run, `python 10-recency-bias-fix.py --run wu`
+- [ ] Verifikasi 01_recency_fix_summary.md, plot timestep comparison, plot metrics comparison
 - [ ] Commit
 
 ## Task 4. Laporan
