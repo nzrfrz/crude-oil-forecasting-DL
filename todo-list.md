@@ -46,10 +46,10 @@ Ditambahkan setelah analisa XAI menunjukkan Transformer dan Informer punya times
 
 - [x] Tulis `10-recency-bias-fix.py`, learned positional encoding + last-timestep pooling untuk Transformer dan Informer, baseline dimuat dari checkpoint Stage 05 tanpa retrain
 - [x] Smoke test, verifikasi 4 checkpoint baseline (Transformer/Informer x full/wu) berhasil dimuat dengan state_dict cocok
-- [ ] User run, `python 10-recency-bias-fix.py --run full`
-- [ ] User run, `python 10-recency-bias-fix.py --run wu`
-- [ ] Verifikasi 01_recency_fix_summary.md, plot timestep comparison, plot metrics comparison
-- [ ] Commit
+- [x] User run, `python 10-recency-bias-fix.py --run full`
+- [x] User run, `python 10-recency-bias-fix.py --run wu`
+- [x] Verifikasi 01_recency_fix_summary.md, plot timestep comparison, plot metrics comparison
+- [x] Commit (ca19d95)
 
 ## Task 3c. Hyperparameter Tuning (MLP)
 
@@ -57,10 +57,10 @@ Ditambahkan setelah XAI menunjukkan MLP model terlemah (bukan masalah struktural
 
 - [x] Tulis `11-hyperparameter-tuning.py`, Optuna TPE + MedianPruner, 30 trial default, checkpoint tuned disimpan terpisah (tidak menimpa Stage 05)
 - [x] Smoke test, `--n-trials 2` di run wu, pipeline lengkap jalan tanpa error (search, retrain, baseline load, report), artefak smoke test dihapus
-- [ ] User run, `python 11-hyperparameter-tuning.py --run full`
-- [ ] User run, `python 11-hyperparameter-tuning.py --run wu`
-- [ ] Verifikasi 01_mlp_tuning_summary.md, apakah tuned mengalahkan baseline
-- [ ] Commit
+- [x] User run, `python 11-hyperparameter-tuning.py --run full`
+- [x] User run, `python 11-hyperparameter-tuning.py --run wu`
+- [x] Verifikasi 01_mlp_tuning_summary.md, apakah tuned mengalahkan baseline (tuned menang telak di kedua run)
+- [x] Commit (ca19d95)
 
 ## Task 4. Laporan
 
