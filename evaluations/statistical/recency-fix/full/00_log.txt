@@ -1,0 +1,55 @@
+Log started: 2026-07-14 20:11:34
+======================================================================
+  STAGE 10: RECENCY-BIAS MITIGATION, run=full
+  Device: cuda | Seed: 42 | Lookback T: 10
+======================================================================
+
+[*] Loading data...
+
+============================================================
+[*] Transformer
+============================================================
+  [*] Loading baseline Transformer checkpoint (Stage 05, unchanged)...
+  [*] Training Fixed Transformer (learned PE + last-timestep pooling)...
+  [Transformer-Fixed] Epoch   1 | Train=0.012875 | Val=0.000600 | LR=1.00e-03
+  [Transformer-Fixed] Epoch  20 | Train=0.000424 | Val=0.000140 | LR=1.00e-03
+  [Transformer-Fixed] Epoch  40 | Train=0.000348 | Val=0.000321 | LR=1.00e-03
+  [Transformer-Fixed] Epoch  60 | Train=0.000221 | Val=0.000108 | LR=2.50e-04
+  [Transformer-Fixed] Early stop @ epoch 69 (best_val=0.000108)
+  [Transformer-Fixed] Finished in 140.9s | Best val: 0.000108
+  [+] Saved: models/full/transformer_recency_fixed_model.pt
+    [baseline] TEST: MAE=3.5398 MAPE=6.4038% | UNSEEN: MAE=3.3258 MAPE=4.0147%
+    [fixed] TEST: MAE=3.5732 MAPE=6.9463% | UNSEEN: MAE=3.3878 MAPE=4.0824%
+  [*] Re-running SHAP timestep attribution on test set...
+    Baseline timestep concentration: 0.0765
+    Fixed    timestep concentration: 0.1625
+
+============================================================
+[*] Informer
+============================================================
+  [*] Loading baseline Informer checkpoint (Stage 05, unchanged)...
+  [*] Training Fixed Informer (learned PE + last-timestep pooling)...
+  [Informer-Fixed] Epoch   1 | Train=0.033352 | Val=0.000389 | LR=1.00e-03
+  [Informer-Fixed] Epoch  20 | Train=0.000457 | Val=0.000331 | LR=1.00e-03
+  [Informer-Fixed] Epoch  40 | Train=0.000346 | Val=0.000220 | LR=1.00e-03
+  [Informer-Fixed] Early stop @ epoch 56 (best_val=0.000105)
+  [Informer-Fixed] Finished in 153.1s | Best val: 0.000105
+  [+] Saved: models/full/informer_recency_fixed_model.pt
+    [baseline] TEST: MAE=3.4012 MAPE=6.7074% | UNSEEN: MAE=3.5364 MAPE=4.2453%
+    [fixed] TEST: MAE=2.9913 MAPE=5.9306% | UNSEEN: MAE=3.3433 MAPE=4.0490%
+  [*] Re-running SHAP timestep attribution on test set...
+    Baseline timestep concentration: 0.0743
+    Fixed    timestep concentration: 0.1590
+
+[*] Saving reports...
+  [+] Saved: evaluations/statistical/recency-fix/full/01_recency_fix_summary.md
+  [+] Saved: evaluations/graphical/recency-fix/full/02_timestep_attribution_comparison_transformer.png
+  [+] Saved: evaluations/graphical/recency-fix/full/03_metrics_comparison_test_transformer.png
+  [+] Saved: evaluations/graphical/recency-fix/full/03_metrics_comparison_unseen_transformer.png
+  [+] Saved: evaluations/graphical/recency-fix/full/02_timestep_attribution_comparison_informer.png
+  [+] Saved: evaluations/graphical/recency-fix/full/03_metrics_comparison_test_informer.png
+  [+] Saved: evaluations/graphical/recency-fix/full/03_metrics_comparison_unseen_informer.png
+
+[+] Done. Run tag: full. Outputs in evaluations/statistical/recency-fix/full and evaluations/graphical/recency-fix/full.
+
+Log finished: 2026-07-14 20:18:33

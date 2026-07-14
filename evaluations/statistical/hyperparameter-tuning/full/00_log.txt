@@ -1,0 +1,30 @@
+Log started: 2026-07-14 20:55:47
+==================================================================
+  STAGE 11: HYPERPARAMETER TUNING (MLP), run=full
+  Device: cuda | Seed: 42 | Trials: 30
+==================================================================
+
+[*] Loading data...
+
+[*] Running Optuna search (30 trials)...
+  [+] Best val loss: 0.000072
+  [+] Best params: {"h1": 256, "h2": 128, "h3": 32, "dropout": 0.007929413671136584, "lr": 0.0011107496596584855, "weight_decay": 0.0001}
+
+[*] Retraining MLP with best params (max_epochs=200)...
+  [+] Saved: models/full/mlp_tuned_model.pt
+
+[*] Loading baseline MLP checkpoint (Stage 05, unchanged)...
+
+[*] Computing metrics...
+  [baseline] TEST: MAE=3.1983 MAPE=6.9060% | UNSEEN: MAE=3.1099 MAPE=3.7210%
+  [tuned] TEST: MAE=2.6613 MAPE=6.0406% | UNSEEN: MAE=2.8475 MAPE=3.4375%
+
+[*] Saving reports...
+  [+] Saved: evaluations/statistical/hyperparameter-tuning/full/01_mlp_tuning_summary.md
+  [+] Saved: evaluations/graphical/hyperparameter-tuning/full/02_optimization_history.png
+  [+] Saved: evaluations/graphical/hyperparameter-tuning/full/03_metrics_comparison_test.png
+  [+] Saved: evaluations/graphical/hyperparameter-tuning/full/03_metrics_comparison_unseen.png
+
+[+] Done. Run tag: full. Outputs in evaluations/statistical/hyperparameter-tuning/full and evaluations/graphical/hyperparameter-tuning/full.
+
+Log finished: 2026-07-14 21:03:45

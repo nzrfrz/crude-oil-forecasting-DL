@@ -1,0 +1,29 @@
+Log started: 2026-07-14 21:05:42
+==================================================================
+  STAGE 11: HYPERPARAMETER TUNING (MLP), run=wu
+  Device: cuda | Seed: 42 | Trials: 30
+==================================================================
+
+[*] Loading data...
+
+[*] Running Optuna search (30 trials)...
+  [+] Best val loss: 0.000195
+  [+] Best params: {"h1": 256, "h2": 128, "h3": 32, "dropout": 0.03625603004646558, "lr": 0.0016522729299476796, "weight_decay": 0.0001}
+
+[*] Retraining MLP with best params (max_epochs=200)...
+  [+] Saved: models/wu/mlp_tuned_model.pt
+
+[*] Loading baseline MLP checkpoint (Stage 05, unchanged)...
+
+[*] Computing metrics...
+  [baseline] TEST: MAE=2.4679 MAPE=4.3933%
+  [tuned] TEST: MAE=1.2938 MAPE=2.2953%
+
+[*] Saving reports...
+  [+] Saved: evaluations/statistical/hyperparameter-tuning/wu/01_mlp_tuning_summary.md
+  [+] Saved: evaluations/graphical/hyperparameter-tuning/wu/02_optimization_history.png
+  [+] Saved: evaluations/graphical/hyperparameter-tuning/wu/03_metrics_comparison_test.png
+
+[+] Done. Run tag: wu. Outputs in evaluations/statistical/hyperparameter-tuning/wu and evaluations/graphical/hyperparameter-tuning/wu.
+
+Log finished: 2026-07-14 21:12:13

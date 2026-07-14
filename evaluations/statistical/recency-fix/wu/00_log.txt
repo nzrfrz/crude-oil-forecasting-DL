@@ -1,0 +1,53 @@
+Log started: 2026-07-14 20:20:15
+======================================================================
+  STAGE 10: RECENCY-BIAS MITIGATION, run=wu
+  Device: cuda | Seed: 42 | Lookback T: 10
+======================================================================
+
+[*] Loading data...
+
+============================================================
+[*] Transformer
+============================================================
+  [*] Loading baseline Transformer checkpoint (Stage 05, unchanged)...
+  [*] Training Fixed Transformer (learned PE + last-timestep pooling)...
+  [Transformer-Fixed] Epoch   1 | Train=0.012536 | Val=0.002547 | LR=1.00e-03
+  [Transformer-Fixed] Epoch  20 | Train=0.000407 | Val=0.000555 | LR=1.00e-03
+  [Transformer-Fixed] Epoch  40 | Train=0.000248 | Val=0.000640 | LR=5.00e-04
+  [Transformer-Fixed] Early stop @ epoch 58 (best_val=0.000363)
+  [Transformer-Fixed] Finished in 85.9s | Best val: 0.000363
+  [+] Saved: models/wu/transformer_recency_fixed_model.pt
+    [baseline] TEST: MAE=1.7047 MAPE=2.9898%
+    [fixed] TEST: MAE=1.5877 MAPE=2.8310%
+  [*] Re-running SHAP timestep attribution on test set...
+    Baseline timestep concentration: 0.0340
+    Fixed    timestep concentration: 0.0965
+
+============================================================
+[*] Informer
+============================================================
+  [*] Loading baseline Informer checkpoint (Stage 05, unchanged)...
+  [*] Training Fixed Informer (learned PE + last-timestep pooling)...
+  [Informer-Fixed] Epoch   1 | Train=0.038535 | Val=0.002942 | LR=1.00e-03
+  [Informer-Fixed] Epoch  20 | Train=0.000421 | Val=0.000608 | LR=1.00e-03
+  [Informer-Fixed] Epoch  40 | Train=0.000264 | Val=0.000895 | LR=2.50e-04
+  [Informer-Fixed] Epoch  60 | Train=0.000219 | Val=0.000464 | LR=1.25e-04
+  [Informer-Fixed] Early stop @ epoch 67 (best_val=0.000415)
+  [Informer-Fixed] Finished in 132.5s | Best val: 0.000415
+  [+] Saved: models/wu/informer_recency_fixed_model.pt
+    [baseline] TEST: MAE=1.6921 MAPE=2.9908%
+    [fixed] TEST: MAE=1.4374 MAPE=2.5063%
+  [*] Re-running SHAP timestep attribution on test set...
+    Baseline timestep concentration: 0.0144
+    Fixed    timestep concentration: 0.1563
+
+[*] Saving reports...
+  [+] Saved: evaluations/statistical/recency-fix/wu/01_recency_fix_summary.md
+  [+] Saved: evaluations/graphical/recency-fix/wu/02_timestep_attribution_comparison_transformer.png
+  [+] Saved: evaluations/graphical/recency-fix/wu/03_metrics_comparison_test_transformer.png
+  [+] Saved: evaluations/graphical/recency-fix/wu/02_timestep_attribution_comparison_informer.png
+  [+] Saved: evaluations/graphical/recency-fix/wu/03_metrics_comparison_test_informer.png
+
+[+] Done. Run tag: wu. Outputs in evaluations/statistical/recency-fix/wu and evaluations/graphical/recency-fix/wu.
+
+Log finished: 2026-07-14 20:25:52
