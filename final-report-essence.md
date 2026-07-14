@@ -14,8 +14,12 @@ Close = Trend (LOWESS) + Residual
 Kode produksi (`10-expanding-window-decomposition.py`, repo thesis), expanding window per hari, Trend diambil dari endpoint smoothing.
 
 ```python
-FRAC = 0.02
+FRAC = 0.02          # dikonfirmasi final, modeling-plan-lowess.md
+WARMUP_MINIMUM = 500  # baris pertama dipakai warmup, di-drop dari dataset final
+
 def extract_trend_and_residual(close_window):
+    """Modul LOWESS, return Trend_t (endpoint) dan
+    Residual_window (seluruh kurva, dipakai sbg input CEEMDAN)."""
     x = np.arange(len(close_window))
     smoothed = lowess(close_window, x, frac=FRAC, return_sorted=False)
     trend_t = smoothed[-1]
@@ -23,7 +27,24 @@ def extract_trend_and_residual(close_window):
     return trend_t, residual_window
 ```
 
-`WARMUP_MINIMUM = 500` menentukan `start_t` loop di `main()`, bukan bagian dari fungsi ekstraksi di atas. Baris sebelum t=500 tidak pernah diproses, itu sebabnya dataset final mulai 1988-01-11 bukan 1986-01-02.
+`WARMUP_MINIMUM` tidak dipakai di dalam fungsi ekstraksi di atas, fungsi itu murni menerima `close_window` apa pun yang dikirim kepadanya.
+`WARMUP_MINIMUM` dipakai di fungsi `main()`, menentukan titik awal `t` pada loop produksi (`start_t`), sekaligus logika resume kalau proses sempat dihentikan.
+
+```python
+if os.path.exists(OUTPUT_PATH):
+    existing_df = pd.read_csv(OUTPUT_PATH)
+    n_done = len(existing_df)
+    start_t = WARMUP_MINIMUM + n_done   # resume, lanjut dari progress terakhir
+else:
+    start_t = WARMUP_MINIMUM             # run baru, mulai dari t = 500
+
+for t in range(start_t, n_total):
+    close_window = close[0:t + 1]
+    trend_t, residual_window = extract_trend_and_residual(close_window)
+    ...
+```
+
+Baris sebelum t=500 tidak pernah masuk loop, otomatis tidak ada di dataset final, itu sebabnya dataset final mulai 1988-01-11 bukan 1986-01-02 (bukan karena ada pengecekan warmup di dalam fungsi ekstraksinya).
 
 Frac 0.02 dipilih dari 7 kandidat, dua alasan utama.
 
