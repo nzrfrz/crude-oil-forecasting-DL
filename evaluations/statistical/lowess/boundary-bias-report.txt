@@ -1,0 +1,95 @@
+LOWESS BOUNDARY BIAS VALIDATION REPORT
+======================================================================
+Cutoff dates tested : ['1987-01-02', '1991-01-02', '2001-01-02', '2008-01-02', '2010-01-04', '2015-01-02', '2016-01-04', '2020-01-02', '2025-01-02']
+Extensions (k, hari bursa) : [1, 5, 10, 20, 60, 120]
+Frac candidates     : [0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2]
+Ambang 'signifikan' : 2.0% dari Close saat cutoff (heuristik awal, bukan aturan baku)
+Metodologi: bandingkan Trend di titik cutoff dihitung sebagai ENDPOINT window (tanpa data masa depan, kondisi asli forecasting) vs Trend di titik yang SAMA dihitung ulang setelah window diperpanjang k hari (titik itu jadi interior, punya tetangga kanan).
+======================================================================
+
+--- Cutoff = 1987-01-02 ---
+  frac=0.01: pct_delta terbesar = 0.0000% (pada k=1 hari, abs_delta=0.0000) -> minor
+  frac=0.02: pct_delta terbesar = 0.6764% (pada k=1 hari, abs_delta=0.1226) -> minor
+  frac=0.03: pct_delta terbesar = 0.8232% (pada k=120 hari, abs_delta=0.1492) -> minor
+  frac=0.04: pct_delta terbesar = 1.0560% (pada k=120 hari, abs_delta=0.1915) -> minor
+  frac=0.05: pct_delta terbesar = 1.2543% (pada k=120 hari, abs_delta=0.2274) -> minor
+  frac=0.1: pct_delta terbesar = 1.2239% (pada k=120 hari, abs_delta=0.2219) -> minor
+  frac=0.2: pct_delta terbesar = 3.6847% (pada k=10 hari, abs_delta=-0.6680) -> SIGNIFIKAN
+
+--- Cutoff = 1991-01-02 ---
+  frac=0.01: pct_delta terbesar = 1.4782% (pada k=10 hari, abs_delta=-0.3922) -> minor
+  frac=0.02: pct_delta terbesar = 1.8083% (pada k=5 hari, abs_delta=-0.4797) -> minor
+  frac=0.03: pct_delta terbesar = 3.0753% (pada k=10 hari, abs_delta=-0.8159) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 3.6408% (pada k=10 hari, abs_delta=-0.9659) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 3.4530% (pada k=10 hari, abs_delta=-0.9161) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 13.5244% (pada k=60 hari, abs_delta=3.5880) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 41.0956% (pada k=120 hari, abs_delta=10.9027) -> SIGNIFIKAN
+
+--- Cutoff = 2001-01-02 ---
+  frac=0.01: pct_delta terbesar = 13.2972% (pada k=20 hari, abs_delta=-3.6288) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 8.0820% (pada k=120 hari, abs_delta=-2.2056) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 6.0960% (pada k=5 hari, abs_delta=1.6636) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 14.4847% (pada k=10 hari, abs_delta=3.9529) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 18.2076% (pada k=60 hari, abs_delta=4.9689) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 21.0887% (pada k=120 hari, abs_delta=5.7551) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 19.2211% (pada k=120 hari, abs_delta=5.2454) -> SIGNIFIKAN
+
+--- Cutoff = 2008-01-02 ---
+  frac=0.01: pct_delta terbesar = 2.8763% (pada k=5 hari, abs_delta=-2.8659) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 3.6375% (pada k=20 hari, abs_delta=3.6245) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 1.3479% (pada k=60 hari, abs_delta=1.3430) -> minor
+  frac=0.04: pct_delta terbesar = 2.2396% (pada k=120 hari, abs_delta=-2.2315) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 3.8645% (pada k=120 hari, abs_delta=-3.8506) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 18.1562% (pada k=120 hari, abs_delta=-18.0908) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 14.1207% (pada k=120 hari, abs_delta=-14.0699) -> SIGNIFIKAN
+
+--- Cutoff = 2010-01-04 ---
+  frac=0.01: pct_delta terbesar = 7.4410% (pada k=10 hari, abs_delta=-6.0659) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 2.1303% (pada k=120 hari, abs_delta=1.7367) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 3.6442% (pada k=120 hari, abs_delta=2.9708) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 6.9416% (pada k=120 hari, abs_delta=5.6588) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 7.3856% (pada k=120 hari, abs_delta=6.0208) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 13.7689% (pada k=120 hari, abs_delta=-11.2244) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 2.5606% (pada k=120 hari, abs_delta=-2.0874) -> SIGNIFIKAN
+
+--- Cutoff = 2015-01-02 ---
+  frac=0.01: pct_delta terbesar = 7.8377% (pada k=120 hari, abs_delta=-4.1321) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 21.8067% (pada k=20 hari, abs_delta=11.4965) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 17.8500% (pada k=60 hari, abs_delta=9.4105) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 31.9909% (pada k=60 hari, abs_delta=16.8656) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 53.6291% (pada k=60 hari, abs_delta=28.2732) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 57.2762% (pada k=120 hari, abs_delta=30.1960) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 3.6145% (pada k=120 hari, abs_delta=1.9056) -> SIGNIFIKAN
+
+--- Cutoff = 2016-01-04 ---
+  frac=0.01: pct_delta terbesar = 3.6350% (pada k=10 hari, abs_delta=1.3380) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 5.2470% (pada k=20 hari, abs_delta=1.9314) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 10.6563% (pada k=120 hari, abs_delta=-3.9226) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 13.3008% (pada k=120 hari, abs_delta=-4.8960) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 12.7767% (pada k=120 hari, abs_delta=-4.7031) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 3.3916% (pada k=60 hari, abs_delta=1.2484) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 48.2294% (pada k=60 hari, abs_delta=17.7532) -> SIGNIFIKAN
+
+--- Cutoff = 2020-01-02 ---
+  frac=0.01: pct_delta terbesar = 8.2119% (pada k=120 hari, abs_delta=5.0232) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 8.3131% (pada k=120 hari, abs_delta=5.0851) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 9.6947% (pada k=120 hari, abs_delta=5.9303) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 11.0369% (pada k=120 hari, abs_delta=6.7513) -> SIGNIFIKAN
+  frac=0.05: pct_delta terbesar = 8.3252% (pada k=120 hari, abs_delta=5.0925) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 3.8002% (pada k=120 hari, abs_delta=2.3246) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 1.2399% (pada k=120 hari, abs_delta=0.7585) -> minor
+
+--- Cutoff = 2025-01-02 ---
+  frac=0.01: pct_delta terbesar = 3.2694% (pada k=20 hari, abs_delta=-2.4125) -> SIGNIFIKAN
+  frac=0.02: pct_delta terbesar = 4.1539% (pada k=60 hari, abs_delta=-3.0651) -> SIGNIFIKAN
+  frac=0.03: pct_delta terbesar = 2.6451% (pada k=60 hari, abs_delta=-1.9518) -> SIGNIFIKAN
+  frac=0.04: pct_delta terbesar = 1.3610% (pada k=20 hari, abs_delta=-1.0043) -> minor
+  frac=0.05: pct_delta terbesar = 2.6624% (pada k=120 hari, abs_delta=1.9646) -> SIGNIFIKAN
+  frac=0.1: pct_delta terbesar = 4.9854% (pada k=120 hari, abs_delta=3.6788) -> SIGNIFIKAN
+  frac=0.2: pct_delta terbesar = 5.0333% (pada k=120 hari, abs_delta=3.7141) -> SIGNIFIKAN
+
+======================================================================
+RINGKASAN: 142 dari 378 kombinasi (cutoff x frac x k) melewati ambang 2.0%.
+Detail lengkap semua kombinasi ada di boundary_bias_results.csv dan plot konvergensi 04_boundary_bias_cutoff_*.png (lihat apakah delta mengecil monoton seiring k membesar -- itu tanda estimasi endpoint konvergen ke nilai 'benar', bukan cuma kebetulan kecil di beberapa titik).
+Keputusan mitigasi (kalau diperlukan) & frac final MASIH BELUM DIPUTUSKAN di sini -- laporan ini menyediakan bukti empiris, interpretasi akhir menyusul.
+======================================================================

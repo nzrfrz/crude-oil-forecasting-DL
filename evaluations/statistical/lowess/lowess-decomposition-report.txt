@@ -1,0 +1,73 @@
+LOWESS TREND EXTRACTION REPORT (FULL-SERIES MODULE VALIDATION)
+======================================================================
+Input rows          : 10191
+Date range          : 1986-01-02 to 2026-06-29
+Frac candidates     : [0.01, 0.02, 0.03, 0.04, 0.05, 0.1, 0.2]
+Catatan: dekomposisi ini FULL-SERIES (bukan expanding window), hanya untuk
+validasi kebenaran modul & bantu pemilihan frac. Dataset final training
+wajib dari expanding-window re-decomposition harian (lihat modeling-plan-ceemdan.md).
+======================================================================
+
+CLOSE (ACTUAL) - SUMMARY STATISTICS
+  count=10191 mean=48.4837 std=29.5841 min=-36.9800 25%=20.3550 50%=43.3400 75%=71.5600 max=145.3100 skew=0.5594
+
+--- frac = 0.01 ---
+  LOWESS runtime (full-series, 1x)     : 0.722 detik
+  Identity check max|Close-(Trend+Res)|: 7.105e-15 (OK, eksak)
+  Trend  : mean=48.5135 std=29.0890 min=12.0226 max=125.7326 skew=0.4935
+  Residual: mean=-0.0298 std=3.4309 min=-70.4513 max=29.0400 skew=-0.6874 kurtosis=26.7406
+  ADF  (Residual) : stat=-14.8927 p=1.5486e-27 -> stationer
+  KPSS (Residual) : stat=0.0430 p=0.1000 -> stationer
+
+--- frac = 0.02 ---
+  LOWESS runtime (full-series, 1x)     : 0.799 detik
+  Identity check max|Close-(Trend+Res)|: 3.553e-15 (OK, eksak)
+  Trend  : mean=48.6100 std=28.7402 min=13.0984 max=115.9491 skew=0.4157
+  Residual: mean=-0.1263 std=5.4101 min=-82.0193 max=41.3611 skew=-0.5652 kurtosis=15.6649
+  ADF  (Residual) : stat=-12.9642 p=3.1788e-24 -> stationer
+  KPSS (Residual) : stat=0.0756 p=0.1000 -> stationer
+
+--- frac = 0.03 ---
+  LOWESS runtime (full-series, 1x)     : 0.883 detik
+  Identity check max|Close-(Trend+Res)|: 3.553e-15 (OK, eksak)
+  Trend  : mean=48.5733 std=28.3088 min=13.5545 max=104.1178 skew=0.3466
+  Residual: mean=-0.0896 std=6.6564 min=-83.6098 max=50.0475 skew=0.1164 kurtosis=12.2461
+  ADF  (Residual) : stat=-11.5367 p=3.7186e-21 -> stationer
+  KPSS (Residual) : stat=0.0779 p=0.1000 -> stationer
+
+--- frac = 0.04 ---
+  LOWESS runtime (full-series, 1x)     : 0.977 detik
+  Identity check max|Close-(Trend+Res)|: 3.553e-15 (OK, eksak)
+  Trend  : mean=48.3588 std=27.8150 min=13.2870 max=99.2430 skew=0.3052
+  Residual: mean=0.1249 std=7.7365 min=-84.2394 max=54.2741 skew=0.4992 kurtosis=11.1689
+  ADF  (Residual) : stat=-10.4992 p=1.0955e-18 -> stationer
+  KPSS (Residual) : stat=0.0463 p=0.1000 -> stationer
+
+--- frac = 0.05 ---
+  LOWESS runtime (full-series, 1x)     : 1.099 detik
+  Identity check max|Close-(Trend+Res)|: 3.553e-15 (OK, eksak)
+  Trend  : mean=48.1157 std=27.3985 min=12.7000 max=98.4169 skew=0.2863
+  Residual: mean=0.3680 std=8.5358 min=-86.0415 max=56.5023 skew=0.8683 kurtosis=10.5306
+  ADF  (Residual) : stat=-9.6220 p=1.6989e-16 -> stationer
+  KPSS (Residual) : stat=0.0979 p=0.1000 -> stationer
+
+--- frac = 0.1 ---
+  LOWESS runtime (full-series, 1x)     : 1.601 detik
+  Identity check max|Close-(Trend+Res)|: 7.105e-15 (OK, eksak)
+  Trend  : mean=47.2704 std=25.6038 min=15.4263 max=94.1950 skew=0.1741
+  Residual: mean=1.2133 std=11.2693 min=-96.9970 max=73.4806 skew=1.2728 kurtosis=7.9681
+  ADF  (Residual) : stat=-7.3468 p=1.0304e-10 -> stationer
+  KPSS (Residual) : stat=0.1667 p=0.1000 -> stationer
+
+--- frac = 0.2 ---
+  LOWESS runtime (full-series, 1x)     : 2.577 detik
+  Identity check max|Close-(Trend+Res)|: 7.105e-15 (OK, eksak)
+  Trend  : mean=47.5098 std=24.8332 min=15.2157 max=88.2514 skew=0.0315
+  Residual: mean=0.9739 std=12.6831 min=-100.0887 max=73.7707 skew=0.7856 kurtosis=4.7996
+  ADF  (Residual) : stat=-6.3864 p=2.1592e-08 -> stationer
+  KPSS (Residual) : stat=0.1468 p=0.1000 -> stationer
+
+======================================================================
+Belum diputuskan di sini: frac final (lihat modeling-plan-lowess.md langkah 1),
+strategi mitigasi boundary bias endpoint expanding window (langkah 2, belum diuji)
+======================================================================
