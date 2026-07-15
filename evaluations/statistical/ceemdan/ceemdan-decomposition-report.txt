@@ -1,0 +1,26 @@
+CEEMDAN DECOMPOSITION MODULE VALIDATION REPORT
+======================================================================
+Input: ./dataset/WTI-LOWESS-Residual-FullSeries-EIA-frac0.02.csv (10191 baris)
+trials = 100
+n_IMF dihasilkan: 11
+
+Strategi grouping: ranking relatif (composite score = rata-rata rank ZCR + rank SampEn), split di median -> N=2 grup tetap (group_1=noise-like, group_2=trend-like). res (residue akhir CEEMDAN) tetap terpisah.
+
+Detail per-IMF:
+ imf_index      zcr  sample_entropy  rank_zcr  rank_sampen  composite_score         group
+         1 0.641154        0.665923      11.0         11.0             11.0 group_1_noise
+         2 0.309881        0.468139      10.0          9.0              9.5 group_1_noise
+         3 0.157001        0.482100       9.0         10.0              9.5 group_1_noise
+         4 0.076244        0.365522       8.0          8.0              8.0 group_1_noise
+         5 0.031498        0.172282       7.0          7.0              7.0 group_1_noise
+         6 0.014326        0.059602       6.0          6.0              6.0 group_2_trend
+         7 0.007458        0.037223       5.0          5.0              5.0 group_2_trend
+         8 0.003631        0.017695       4.0          4.0              4.0 group_2_trend
+         9 0.001864        0.005067       3.0          2.0              2.5 group_2_trend
+        10 0.000981        0.007587       2.0          3.0              2.5 group_2_trend
+        11 0.000393        0.003488       1.0          1.0              1.0 group_2_trend
+
+Identity check (Residual = group_1 + group_2 + res): max error = 1.42e-14 -> LOLOS
+Sanity check (Close = Trend + group_1 + group_2 + res): max error = 2.84e-14
+
+PENTING: ini dataset FULL-SERIES (bukan expanding window) -- HANYA untuk validasi modul benar secara matematis. Dataset training final baru ada setelah expanding-window engine (langkah 5) dibangun & dijalankan.
