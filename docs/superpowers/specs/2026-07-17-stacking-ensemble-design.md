@@ -23,25 +23,26 @@ Alasan pemilihan otomatis, bukan selalu pakai varian tuned/fixed, ditemukan saat
 
 RNN, LSTM, BiLSTM, GRU, TCN tidak punya varian lain, selalu pakai checkpoint Stage 05 (`models/<run>/<nama>_model.pt`).
 
-## Varian Ensemble
+## Pencarian Kombinasi Terbaik
 
-Dua komposisi anggota.
+Alih-alih dua komposisi tetap, dilakukan pencarian menyeluruh (exhaustive search) atas semua kombinasi ukuran 3 sampai 5 dari 8 base learner, `C(8,3) + C(8,4) + C(8,5) = 56 + 70 + 56 = 182` kombinasi per run.
 
-1. `Stack-All8`, semua 8 base learner terpilih.
-2. `Stack-Top3`, tiga base learner dengan MAE test individu terendah pada run tersebut (dipilih dari 8 base learner yang sudah lolos seleksi varian di atas, bukan dari total checkpoint yang ada).
-
-Dua meta-learner untuk tiap komposisi.
+Untuk tiap kombinasi, dua meta-learner difit dan dievaluasi.
 
 1. `RidgeCV`, alpha grid `[0.01, 0.1, 1.0, 5.0, 10.0, 50.0, 100.0]`, leave-one-out CV, sama seperti repo referensi.
 2. `SimpleAverage`, rata-rata tak berbobot prediksi anggota, baseline naif untuk menunjukkan apakah RidgeCV benar-benar belajar bobot yang bermakna dibanding rata-rata polos.
 
-Total 4 baris ensemble (`Stack-All8-Ridge`, `Stack-All8-Average`, `Stack-Top3-Ridge`, `Stack-Top3-Average`) ditambahkan ke tabel metrik yang sama dengan 8 model individu.
+Total `182 x 2 = 364` fit dievaluasi per run.
+
+Kriteria rangking, MAE pada VALIDATION SET (bukan test set), supaya proses pemilihan kombinasi tidak bocor ke test set. Test set tetap murni dipakai satu kali di akhir, cuma untuk melaporkan performa kombinasi pemenang, konsisten dengan prinsip test set sebagai evaluasi akhir yang sudah dipegang di seluruh task sebelumnya (04 sampai 11).
+
+Kombinasi pemenang, satu entri (kombinasi anggota, jenis meta-learner) dengan MAE validation terendah di antara 364 entri. Kalau `SimpleAverage` menang atas `RidgeCV` untuk kombinasi yang sama, itu dilaporkan apa adanya (tidak dipaksa RidgeCV menang).
 
 ## Fitting Meta-Learner
 
 Validation set direplikasi persis dari logika Stage 05 (`05-dl-model-training.py` baris 960-964), 10% ekor kronologis dari `X_train` penuh, `n_val = int(len(X_train) * 0.10)`, TIDAK overlap dengan test/unseen, TIDAK butuh file baru karena bisa dihitung ulang dari `dataset/splits/<run>/splits.npz` yang sudah ada (`X_train`, `y_train`).
 
-Prediksi tiap base learner pada validation set dikumpulkan jadi matriks fitur, `RidgeCV` difit terhadap `y_val` (skala scaled, sebelum inverse transform, konsisten dengan cara base learner dilatih). Meta-learner yang sudah difit lalu diterapkan ke prediksi base learner pada test set (dan unseen set untuk run `full`).
+Prediksi tiap base learner pada validation set dikumpulkan jadi matriks fitur, `RidgeCV` difit terhadap `y_val` (skala scaled, sebelum inverse transform, konsisten dengan cara base learner dilatih). Untuk tiap kombinasi (3 sampai 5 anggota), matriks fitur cuma memakai kolom prediksi anggota kombinasi itu. Meta-learner yang sudah difit lalu diterapkan ke prediksi base learner pada test set (dan unseen set untuk run `full`), tapi HANYA untuk kombinasi pemenang, bukan seluruh 364 entri (evaluasi test/unseen untuk semua kombinasi tidak perlu, satu-satunya tujuan test/unseen adalah melaporkan angka final pemenang).
 
 ## Loading Model
 
@@ -57,23 +58,25 @@ Checkpoint dimuat dengan `map_location` sesuai device aktif, `model.eval()`, tan
 
 ## Evaluasi
 
-Metrik skala USD asli (inverse `scaler_y`), MAE, MAPE%, SMAPE%, RMSE, DA%, MASE, R2, format tabel sama seperti `01_metrics_summary.md` Stage 05, dihitung untuk 8 model individu (varian terpilih) plus 4 baris ensemble.
+Metrik skala USD asli (inverse `scaler_y`), MAE, MAPE%, SMAPE%, RMSE, DA%, MASE, R2, format tabel sama seperti `01_metrics_summary.md` Stage 05, dihitung untuk 8 model individu (varian terpilih) plus 1 baris kombinasi pemenang.
 
-DM test (fungsi `diebold_mariano_test` disalin dari `05-dl-model-training.py` baris 589) antara varian ensemble terbaik (MAE test terendah di antara 4 varian) versus model individu terbaik (MAE test terendah di antara 8 base learner), untuk test set, dan untuk unseen set kalau run `full`.
+DM test (fungsi `diebold_mariano_test` disalin dari `05-dl-model-training.py` baris 589) antara kombinasi pemenang versus model individu terbaik (MAE test terendah di antara 8 base learner), untuk test set, dan untuk unseen set kalau run `full`.
 
-Bobot RidgeCV per base learner dilaporkan sebagai bentuk interpretasi kontribusi tiap anggota ke ensemble, tidak ada analisis SHAP/Integrated Gradients tambahan, scope XAI dianggap sudah cukup dari Task 3.
+Kalau meta-learner pemenang adalah `RidgeCV`, bobot Ridge per anggota kombinasi dilaporkan sebagai bentuk interpretasi kontribusi. Kalau pemenang `SimpleAverage`, dicatat bahwa bobot implisit sama rata. Tidak ada analisis SHAP/Integrated Gradients tambahan, scope XAI dianggap sudah cukup dari Task 3.
 
 ## Output
 
 Script baru, `12-stacking-ensemble.py`, mengikuti struktur folder yang sama dengan task sebelumnya.
 
-- `evaluations/statistical/stacking/{full,wu}/01_stacking_summary.md`, berisi, varian base learner terpilih beserta alasan (MAE pembanding), tabel metrik 8 model individu plus 4 varian ensemble, bobot RidgeCV per base learner untuk `Stack-All8-Ridge` dan `Stack-Top3-Ridge`, hasil DM test.
-- `evaluations/graphical/stacking/{full,wu}/`, bar chart perbandingan MAE/MAPE/DA semua entry (12 total), plot actual vs predicted untuk varian ensemble dengan MAE terendah.
-- `models/{full,wu}/stacking_all8_ridge.pkl`, `models/{full,wu}/stacking_top3_ridge.pkl`, disimpan via `joblib`, tidak menimpa checkpoint model manapun.
+- `evaluations/statistical/stacking/{full,wu}/01_stacking_summary.md`, berisi, varian base learner terpilih beserta alasan (MAE pembanding), ringkasan pencarian (182 kombinasi x 2 meta-learner = 364 entri, kriteria rangking MAE validation), tabel Top 10 kombinasi (anggota, jenis meta-learner, MAE validation), detail kombinasi pemenang (anggota, jenis meta-learner, bobot Ridge kalau relevan), tabel metrik 8 model individu plus kombinasi pemenang pada test/unseen, hasil DM test.
+- `evaluations/graphical/stacking/{full,wu}/`, bar chart perbandingan MAE/MAPE/DA semua entry (8 individu plus 1 pemenang), plot actual vs predicted untuk kombinasi pemenang.
+- `models/{full,wu}/stacking_winner.pkl`, meta-learner terfit dari kombinasi pemenang, disimpan via `joblib` (kalau `RidgeCV`, simpan objek Ridge, kalau `SimpleAverage`, simpan daftar nama anggota saja karena tidak ada parameter terlatih), tidak menimpa checkpoint model manapun.
 
 ## Catatan Kejujuran
 
-Hasil stacking dilaporkan apa adanya di `01_stacking_summary.md`, termasuk kalau ternyata TIDAK mengalahkan model individu terbaik (skenario yang cukup mungkin, berdasarkan hasil serupa di repo referensi, lihat Latar Belakang). Interpretasi jujur tentang kenapa stacking gagal atau berhasil (misalnya, base learner terlalu berkorelasi sehingga tidak banyak keragaman untuk digabung, atau justru komposisi Top3 lebih baik dari All8 karena model lemah menambah noise) ditulis di bagian akhir summary, mengikuti pola kejujuran metodologis yang sudah dipakai di `final-report.md` Bagian 7.4-7.6.
+Hasil stacking dilaporkan apa adanya di `01_stacking_summary.md`, termasuk kalau ternyata TIDAK mengalahkan model individu terbaik (skenario yang cukup mungkin, berdasarkan hasil serupa di repo referensi, lihat Latar Belakang). Interpretasi jujur tentang kenapa stacking gagal atau berhasil (misalnya, base learner terlalu berkorelasi sehingga tidak banyak keragaman untuk digabung, atau kombinasi ukuran kecil justru lebih baik dari ukuran besar karena model lemah menambah noise) ditulis di bagian akhir summary, mengikuti pola kejujuran metodologis yang sudah dipakai di `final-report.md` Bagian 7.4-7.6.
+
+Rangking berbasis MAE validation juga punya risiko metodologis sendiri, dengan 364 entri dites terhadap validation set yang relatif kecil (10% dari train), ada kemungkinan overfitting seleksi (kombinasi menang di validation belum tentu menang di test). Ini WAJIB disebutkan di summary sebagai batasan, bukan disembunyikan, dan jadi alasan kenapa Top 10 kombinasi ditampilkan (bukan cuma pemenang tunggal), supaya pembaca bisa menilai apakah pemenang menang tipis atau menang telak dibanding kombinasi lain.
 
 ## Update ke `final-report.md` dan `todo-list.md`
 
@@ -81,4 +84,4 @@ Setelah eksperimen selesai dan diverifikasi user, `todo-list.md` ditambah Task 5
 
 ## Di Luar Scope
 
-Tidak ada retrain base learner. Tidak ada varian ensemble lain (stacking dua level, boosting, dsb). Tidak ada analisis XAI untuk model ensemble. Tidak ada perbandingan ulang terhadap Wu et al. untuk hasil stacking (Bagian 7 final-report.md sudah menjawab itu untuk model individu, menambah stacking ke perbandingan itu di luar scope task ini kecuali diminta terpisah).
+Tidak ada retrain base learner. Tidak ada kombinasi di luar rentang ukuran 3 sampai 5 (kombinasi ukuran 1-2 atau 6-8 tidak dicari). Tidak ada varian ensemble lain (stacking dua level, boosting, dsb). Tidak ada analisis XAI untuk model ensemble. Tidak ada perbandingan ulang terhadap Wu et al. untuk hasil stacking (Bagian 7 final-report.md sudah menjawab itu untuk model individu, menambah stacking ke perbandingan itu di luar scope task ini kecuali diminta terpisah).
