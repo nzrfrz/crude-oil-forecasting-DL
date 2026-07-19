@@ -1,0 +1,39 @@
+Log started: 2026-07-17 19:31:16
+==================================================================
+  STAGE 12: STACKING ENSEMBLE, run=wu
+  Device: cuda | Seed: 42
+==================================================================
+
+[*] Loading data...
+    Val windows  : 646
+    Test windows : 1618
+
+[*] Memuat checkpoint dan memilih varian terbaik per arsitektur...
+  [+] MLP, Tuned(MAE=1.2938), Baseline(MAE=2.4679), terpilih Tuned
+  [+] RNN, Baseline(MAE=1.2945), terpilih Baseline
+  [+] LSTM, Baseline(MAE=1.5556), terpilih Baseline
+  [+] BiLSTM, Baseline(MAE=1.3788), terpilih Baseline
+  [+] GRU, Baseline(MAE=1.4934), terpilih Baseline
+  [+] TCN, Baseline(MAE=1.2462), terpilih Baseline
+  [+] Transformer, Fixed(MAE=1.5877), Baseline(MAE=1.7047), terpilih Fixed
+  [+] Informer, Fixed(MAE=1.4374), Baseline(MAE=1.6921), terpilih Fixed
+  [+] Model individu terbaik (test MAE): TCN
+
+[*] Mencari kombinasi terbaik (8 base learner, ukuran 3-5, 182 kombinasi x 2 meta-learner = 364 entri)...
+  [+] Kombinasi pemenang, ('MLP', 'RNN', 'BiLSTM', 'GRU', 'Informer'), meta=RidgeCV, MAE val=1.3580
+
+[*] Evaluasi kombinasi pemenang di test/unseen...
+  [+] Test MAE=1.8996 MAPE=3.5893% R2=0.9855
+
+[*] Diebold-Mariano test, pemenang vs model individu terbaik...
+  [+] Test DM stat=15.9119 p=0.0000
+
+[*] Menulis laporan dan plot...
+  [+] Saved: evaluations/statistical/stacking/wu/01_stacking_summary.md
+  [+] Saved: evaluations/graphical/stacking/wu/02_metrics_test.png
+  [+] Saved: evaluations/graphical/stacking/wu/03_winner_actual_vs_predicted_test.png
+
+[*] Menyimpan meta-learner...
+  [+] Saved: models/wu/stacking_winner.pkl
+
+Log finished: 2026-07-17 19:31:19

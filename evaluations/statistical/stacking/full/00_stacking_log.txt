@@ -1,0 +1,43 @@
+Log started: 2026-07-17 19:29:21
+==================================================================
+  STAGE 12: STACKING ENSEMBLE, run=full
+  Device: cuda | Seed: 42
+==================================================================
+
+[*] Loading data...
+    Val windows  : 774
+    Test windows : 968
+    Unseen windows : 969
+
+[*] Memuat checkpoint dan memilih varian terbaik per arsitektur...
+  [+] MLP, Tuned(MAE=2.6613), Baseline(MAE=3.1983), terpilih Tuned
+  [+] RNN, Baseline(MAE=2.7962), terpilih Baseline
+  [+] LSTM, Baseline(MAE=3.4650), terpilih Baseline
+  [+] BiLSTM, Baseline(MAE=3.0547), terpilih Baseline
+  [+] GRU, Baseline(MAE=3.1805), terpilih Baseline
+  [+] TCN, Baseline(MAE=3.1283), terpilih Baseline
+  [+] Transformer, Baseline(MAE=3.5398), Fixed(MAE=3.5732), terpilih Baseline
+  [+] Informer, Fixed(MAE=2.9913), Baseline(MAE=3.4012), terpilih Fixed
+  [+] Model individu terbaik (test MAE): MLP
+
+[*] Mencari kombinasi terbaik (8 base learner, ukuran 3-5, 182 kombinasi x 2 meta-learner = 364 entri)...
+  [+] Kombinasi pemenang, ('MLP', 'BiLSTM', 'GRU', 'TCN', 'Transformer'), meta=RidgeCV, MAE val=0.8534
+
+[*] Evaluasi kombinasi pemenang di test/unseen...
+  [+] Test MAE=2.7400 MAPE=5.7508% R2=0.9510
+  [+] Unseen MAE=2.8759 MAPE=3.4266% R2=0.6761
+
+[*] Diebold-Mariano test, pemenang vs model individu terbaik...
+  [+] Test DM stat=1.9018 p=0.0575
+
+[*] Menulis laporan dan plot...
+  [+] Saved: evaluations/statistical/stacking/full/01_stacking_summary.md
+  [+] Saved: evaluations/graphical/stacking/full/02_metrics_test.png
+  [+] Saved: evaluations/graphical/stacking/full/03_winner_actual_vs_predicted_test.png
+  [+] Saved: evaluations/graphical/stacking/full/02b_metrics_unseen.png
+  [+] Saved: evaluations/graphical/stacking/full/03b_winner_actual_vs_predicted_unseen.png
+
+[*] Menyimpan meta-learner...
+  [+] Saved: models/full/stacking_winner.pkl
+
+Log finished: 2026-07-17 19:29:27

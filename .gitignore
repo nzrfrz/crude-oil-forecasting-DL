@@ -3,3 +3,4 @@ __pycache__/
 *.pkl
 dataset/splits/
 dataset/scalers/
+report/
